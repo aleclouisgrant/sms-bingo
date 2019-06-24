@@ -1,0 +1,9 @@
+﻿  Uic'ing sms_bingo.ui...
+  Rcc'ing sms_bingo.qrc...
+  Moc'ing sms_bingo.h...
+   RCC: Warning: No resources in 'E:\SMS Bingo\sms-bingo\Source\sms-bingo\sms_bingo.qrc'.
+  main.cpp
+  sms_bingo.cpp
+  qrc_sms_bingo.cpp
+  moc_sms_bingo.cpp
+  sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe
