@@ -1,4 +1,15 @@
 <RCC>
-    <qresource prefix="sms_bingo">
+    <qresource prefix="/MainWindow"/>
+    <qresource prefix="/QSS">
+        <file>selectspace.qss</file>
+        <file>gameView.qss</file>
+        <file>boardView.qss</file>
+        <file>title.qss</file>
+        <file>board.qss</file>
     </qresource>
+    <qresource prefix="/Fonts">
+        <file alias="Delfino.ttf">Resources/Fonts/Delfino.ttf</file>
+        <file alias="SuperMario256.tff">Resources/Fonts/SuperMario256.ttf</file>
+    </qresource>
+    <qresource prefix="/Video"/>
 </RCC>

@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="sms_bingo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -14,33 +24,177 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-      <ParseFiles>true</ParseFiles>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-      <ParseFiles>true</ParseFiles>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-      <ParseFiles>true</ParseFiles>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{1e92e2dd-e237-45c2-9f87-e9c95e7e04e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\QSS">
+      <UniqueIdentifier>{ba394a2a-a63e-4012-b5cd-5d8ad08c1ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Fonts">
+      <UniqueIdentifier>{97b066f1-1867-4f6e-a5ef-83de15e99b8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DolphinProcess">
+      <UniqueIdentifier>{43d3d06e-14e4-4c19-aed9-30f7eae95291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{867ba18e-bf90-4376-ba35-d83a9d6ae2e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DolphinProcess\Windows">
+      <UniqueIdentifier>{c9ac4cdb-0fcd-41ce-8685-f69e95583267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MemoryScanner">
+      <UniqueIdentifier>{e187f912-c139-4ffa-9725-87d6d1d72e85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="sms_bingo.h">
+    <ClCompile Include="BingoBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TitleWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoButtonGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\MemoryCommon.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DolphinProcess\DolphinAccessor.cpp">
+      <Filter>DolphinProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="DolphinProcess\Windows\WindowsDolphinProcess.cpp">
+      <Filter>DolphinProcess\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryScanner\MemoryScanner.cpp">
+      <Filter>MemoryScanner</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="BingoBoard.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoSpace.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="TitleWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BoardWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="HomeWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoButton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoButtonGroup.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MemoryScanner\MemoryScanner.h">
+      <Filter>MemoryScanner</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="sms_bingo.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
+    <ClCompile Include="GeneratedFiles\moc_BingoBoard.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_BingoSpace.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_MainWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <CustomBuild Include="GeneratedFiles\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="boardView.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="selectspace.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="gameView.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="Resources\Fonts\Delfino.ttf">
+      <Filter>Resources\Fonts</Filter>
+    </None>
+    <None Include="board.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fonts\SuperMario256.ttf">
+      <Filter>Resources\Fonts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="sms_bingo.qrc">
-      <Filter>Resource Files</Filter>
+      <Filter>Resources</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\titlevideo.wmv">
+      <Filter>Resources</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="title.qss">
+      <Filter>Resources\QSS</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common\CommonTypes.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\CommonUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\MemoryCommon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DolphinProcess\DolphinAccessor.h">
+      <Filter>DolphinProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="DolphinProcess\IDolphinProcess.h">
+      <Filter>DolphinProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="DolphinProcess\Windows\WindowsDolphinProcess.h">
+      <Filter>DolphinProcess\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

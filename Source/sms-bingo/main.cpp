@@ -1,10 +1,21 @@
-#include "sms_bingo.h"
+#include "MainWindow.h"
+#include "TitleWindow.h"
+#include "BoardWindow.h"
+#include "HomeWindow.h"
 #include <QtWidgets/QApplication>
+
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	sms_bingo w;
-	w.show();
+
+	//MainWindow window;
+	//TitleWindow window;
+	BoardWindow window;
+	//HomeWindow window;
+
+	//window.showFullScreen();
+	window.show();
+
 	return a.exec();
 }

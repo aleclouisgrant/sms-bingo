@@ -1,9 +1,8 @@
-﻿  Uic'ing sms_bingo.ui...
-  Rcc'ing sms_bingo.qrc...
-  Moc'ing sms_bingo.h...
-   RCC: Warning: No resources in 'E:\SMS Bingo\sms-bingo\Source\sms-bingo\sms_bingo.qrc'.
+﻿  Generate moc_predefs.h
+  Moc'ing BoardWindow.h...
+   Warning: Failed to resolve include "./GeneratedFiles/Debug/moc_predefs.h" for moc file E:\SMS Bingo\sms-bingo\Source\sms-bingo\BoardWindow.h
+  BoardWindow.cpp
+  moc_BoardWindow.cpp
+  MemoryScanner.cpp
   main.cpp
-  sms_bingo.cpp
-  qrc_sms_bingo.cpp
-  moc_sms_bingo.cpp
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe
