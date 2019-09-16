@@ -1,4 +1,4 @@
 ﻿  Generate moc_predefs.h
-  Rcc'ing sms_bingo.qrc...
-  qrc_sms_bingo.cpp
+  BingoSpaceList.cpp
+  MemoryScanner.cpp
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe

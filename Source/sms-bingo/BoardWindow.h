@@ -21,6 +21,12 @@ class BoardWindow : public QMainWindow
 public:
 	BoardWindow(QWidget *parent = Q_NULLPTR);
 	~BoardWindow();
+
+private slots:
+	void SelectSpace();
+	void SetSelectable(int id);
+
+private:
 	void MakePlayers();
 	void HookToDolphin();
 	void MakeWidgets();
@@ -29,12 +35,6 @@ public:
 	void ConnectButtons();
 	void ReadStyleSheets();
 
-private slots:
-	void ToggleView();
-	void SelectSpace();
-	void SetSelectable(int id);
-
-private:
 	MemoryScanner *m_memscanner;
 	int boardSize;
 	double aspect_ratio;

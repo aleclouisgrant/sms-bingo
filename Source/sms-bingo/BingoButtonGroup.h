@@ -15,7 +15,7 @@ public:
 	void setText(int id, QString text);
 	void setSpace(int id, BingoSpace *bingoSpace);
 	bool checkSpace(int id);
-	void selectSpace(int id);
+	bool selectSpace(int id);
 	void setSelectable(int id);
 
 private:

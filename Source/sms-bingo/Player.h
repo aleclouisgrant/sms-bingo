@@ -57,7 +57,6 @@ public:
 	int getShadowMarioTotal();
 
 
-
 	int m_shineTotal;
 	int m_shineTotalCheck;
 

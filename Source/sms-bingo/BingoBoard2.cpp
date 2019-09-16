@@ -71,7 +71,7 @@ void BingoBoard::SetSelectable(int id)
 
 void BingoBoard::SelectSpace(int id)
 {
-	m_bingoButtonGroup->selectSpace(id);
-	emit SpaceSelected(id);
-	qDebug() << "SpaceSelected emitted!! id is: " << id;
+	if (m_bingoButtonGroup->selectSpace(id)) {
+		emit SpaceSelected(id);
+	}
 }

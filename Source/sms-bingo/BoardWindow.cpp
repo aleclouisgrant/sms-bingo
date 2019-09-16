@@ -33,8 +33,8 @@ BoardWindow::~BoardWindow()
 
 void BoardWindow::MakePlayers()
 {
-	localPlayer = new Player("biggusdickus");
-	remotePlayer = new Player("ricekitteh");
+	localPlayer = new Player("local player");
+	remotePlayer = new Player("remote player");
 }
 
 void BoardWindow::HookToDolphin() 
@@ -109,8 +109,6 @@ void BoardWindow::MakeWidgets()
 
 void BoardWindow::ConnectButtons()
 {
-	connect(m_rulesButton, &QPushButton::released, this,
-		&BoardWindow::ToggleView);
 	connect(m_bingoBoard, &BingoBoard::SpaceSelected, this,
 		&BoardWindow::SelectSpace);
 	connect(m_bingoBoard, &BingoBoard::Selectable, this,
@@ -127,12 +125,6 @@ void BoardWindow::SelectSpace()
 	localPlayer->score = localPlayer->score + 1;
 	m_localPlayerLabel->setText(localPlayer->username +
 		QString::fromStdString(" x ") + QString::number(localPlayer->score));
-}
-
-
-void BoardWindow::ToggleView()
-{
-
 }
 
 void BoardWindow::DisplayGameView()

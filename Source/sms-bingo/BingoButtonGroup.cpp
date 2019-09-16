@@ -44,13 +44,15 @@ void BingoButtonGroup::setSelectable(int id)
 	btn->setStyleSheet(selectableSpaceSS);
 }
 
-void BingoButtonGroup::selectSpace(int id)
+bool BingoButtonGroup::selectSpace(int id)
 {
 	BingoButton *btn = (BingoButton *)button(id);
 
 	if (!(btn->isSelected()) && btn->isSelectable()) {
 		btn->setStyleSheet(selectedSpaceSS);
 		btn->SelectSpace();
+		return true;
 	}
+	return false;
 
 }
