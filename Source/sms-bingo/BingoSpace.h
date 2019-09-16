@@ -1,18 +1,20 @@
 #pragma once
-#include <QtWidgets/QMainWindow>
-#include <QPushButton>
+#include <string>
+#include <tuple>
 
-class BingoSpace : public QPushButton
+
+class BingoSpace
 {
-	Q_OBJECT
 
 public:
-	BingoSpace();
+	BingoSpace(std::string title);
 	~BingoSpace();
 
-	int boardsize;
+	std::string GetText();
+	void AddCondition(int *var, int val);
+	bool CheckConditions();
 
-protected:
-	virtual void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
-
+private:
+	std::string m_title;
+	std::tuple <bool, int *, int> m_condition;
 };

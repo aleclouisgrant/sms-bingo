@@ -1,8 +1,4 @@
 ﻿  Generate moc_predefs.h
-  Moc'ing BoardWindow.h...
-   Warning: Failed to resolve include "./GeneratedFiles/Debug/moc_predefs.h" for moc file E:\SMS Bingo\sms-bingo\Source\sms-bingo\BoardWindow.h
-  BoardWindow.cpp
-  moc_BoardWindow.cpp
-  MemoryScanner.cpp
-  main.cpp
+  Rcc'ing sms_bingo.qrc...
+  qrc_sms_bingo.cpp
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe

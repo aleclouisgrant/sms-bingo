@@ -7,8 +7,13 @@ BingoButtonGroup::BingoButtonGroup(QWidget *parent)
 {
 	QFile file(":/QSS/selectspace.qss");
 	file.open(QFile::ReadOnly);
-	selectSpaceSS = QLatin1String(file.readAll());
+	selectedSpaceSS = QLatin1String(file.readAll());
 	file.close();
+	
+	QFile otherfile(":/QSS/selectableSpace.qss");
+	otherfile.open(QFile::ReadOnly);
+	selectableSpaceSS = QLatin1String(otherfile.readAll());
+	otherfile.close();
 }
 
 BingoButtonGroup::~BingoButtonGroup()
@@ -21,9 +26,31 @@ void BingoButtonGroup::setText(int id, QString text)
 	btn->setText(text);
 }
 
+void BingoButtonGroup::setSpace(int id, BingoSpace *bingoSpace)
+{
+	BingoButton *btn = (BingoButton *)button(id);
+	btn->setBingoSpace(bingoSpace);
+}
+
+bool BingoButtonGroup::checkSpace(int id) 
+{
+	BingoButton *btn = (BingoButton *)button(id);
+	return btn->CheckSpace();
+}
+
+void BingoButtonGroup::setSelectable(int id) 
+{
+	BingoButton *btn = (BingoButton *)button(id);
+	btn->setStyleSheet(selectableSpaceSS);
+}
+
 void BingoButtonGroup::selectSpace(int id)
 {
 	BingoButton *btn = (BingoButton *)button(id);
-	btn->setEnabled(false);
-	btn->setStyleSheet(selectSpaceSS);
+
+	if (!(btn->isSelected()) && btn->isSelectable()) {
+		btn->setStyleSheet(selectedSpaceSS);
+		btn->SelectSpace();
+	}
+
 }

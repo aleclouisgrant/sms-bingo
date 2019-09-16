@@ -17,3 +17,7 @@ Player::~Player()
 int Player::GetElo() {
 	return 1000;
 }
+
+void Player::SetValue(int *var, int value) {
+	*var = value;
+}

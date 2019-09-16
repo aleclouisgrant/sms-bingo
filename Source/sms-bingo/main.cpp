@@ -1,4 +1,3 @@
-#include "MainWindow.h"
 #include "TitleWindow.h"
 #include "BoardWindow.h"
 #include "HomeWindow.h"
@@ -9,7 +8,6 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	//MainWindow window;
 	//TitleWindow window;
 	BoardWindow window;
 	//HomeWindow window;

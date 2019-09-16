@@ -7,6 +7,7 @@
 #include "BingoButton.h"
 #include <DolphinProcess/DolphinAccessor.h>
 #include <MemoryScanner/MemoryScanner.h>
+#include <Player.h>
 
 BoardWindow::BoardWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -17,19 +18,23 @@ BoardWindow::BoardWindow(QWidget *parent)
 	screen = QGuiApplication::primaryScreen();
 	screenGeometry = screen->geometry();
 
-	HookToDolphin();
-	ReadStyleSheets();
 	MakePlayers();
+	ReadStyleSheets();
 	MakeWidgets();
+	HookToDolphin();
 	DisplayGameView();
-	PopulateBoard();
 	ConnectButtons();
 }
-
 
 BoardWindow::~BoardWindow()
 {
 
+}
+
+void BoardWindow::MakePlayers()
+{
+	localPlayer = new Player("biggusdickus");
+	remotePlayer = new Player("ricekitteh");
 }
 
 void BoardWindow::HookToDolphin() 
@@ -37,7 +42,7 @@ void BoardWindow::HookToDolphin()
 	DolphinComm::DolphinAccessor::hook();
 	if (DolphinComm::DolphinAccessor::getStatus() ==
 		DolphinComm::DolphinAccessor::DolphinStatus::hooked) {
-		m_memscanner = new MemoryScanner();
+		m_memscanner = new MemoryScanner(m_bingoBoard);
 		m_memscanner->Start();
 	}
 }
@@ -46,14 +51,15 @@ void BoardWindow::ReadStyleSheets()
 {
 	QFile file(":/QSS/board.qss");
 	file.open(QFile::ReadOnly);
-	boardSS = QLatin1String(file.readAll());
+	m_boardSS = QLatin1String(file.readAll());
 	file.close();
-}
 
-void BoardWindow::MakePlayers()
-{
-	localPlayer = new Player("biggusdickus");
-	remotePlayer = new Player("ricekitteh");
+	/*
+	QFile selectableSpaceFile(":/QSS/selectedSpace.qss");
+	selectableSpaceFile.open(QFile::ReadOnly);
+	m_selectableSpaceSS = QLatin1String(selectableSpaceFile.readAll());
+	selectableSpaceFile.close();
+	*/
 }
 
 void BoardWindow::MakeWidgets()
@@ -68,7 +74,6 @@ void BoardWindow::MakeWidgets()
 	m_menuWidget->setObjectName("MenuWidget");
 
 	mainLayout = new QVBoxLayout(this);
-	m_bingoGrid = new QGridLayout(this);
 	m_menuLayout = new QHBoxLayout(this);
 
 	m_logoLabel_SuperMario = new QLabel("Super Mario", this);
@@ -96,47 +101,29 @@ void BoardWindow::MakeWidgets()
 	m_forfeitButton = new QPushButton("Forfeit", this);
 	m_forfeitButton->setObjectName("ForfeitButton");
 
-	MakeBingoBoard();
-}
+	m_bingoBoard = new BingoBoard(boardSize, localPlayer, this);
+	m_bingoBoard->setObjectName("BingoBoard");
 
-void BoardWindow::MakeBingoBoard()
-{
-	m_bingoButtonGroup = new BingoButtonGroup(this);
-
-	for (int i = 0; i < boardSize; i++) {
-		for (int j = 0; j < boardSize; j++) {
-			int index = (i*boardSize) + j;
-			QString btnText = QString::fromStdString("Option "
-				+ std::to_string(index));
-			BingoButton *btn = new BingoButton(this);
-			btn->setText(btnText);
-			btn->setMinimumSize(110);
-			btn->setMaximumSize(110);
-
-			m_bingoButtonGroup->addButton(btn);
-			m_bingoButtonGroup->setId(btn, (i*boardSize) + j);
-			m_bingoGrid->addWidget(btn, i, j);
-		}
-	}
+	m_bingoBoard->PopulateBoard();
 }
 
 void BoardWindow::ConnectButtons()
 {
 	connect(m_rulesButton, &QPushButton::released, this,
 		&BoardWindow::ToggleView);
-	connect(m_bingoButtonGroup,
-		QOverload<int>::of(&QButtonGroup::buttonClicked), this,
+	connect(m_bingoBoard, &BingoBoard::SpaceSelected, this,
 		&BoardWindow::SelectSpace);
-
-	connect(m_memscanner, &MemoryScanner::BingoSpace_OneShine, this,
-		&BoardWindow::SelectSpace);
-	connect(m_memscanner, &MemoryScanner::ValueChanged, this,
-		&BoardWindow::SelectSpace);
+	connect(m_bingoBoard, &BingoBoard::Selectable, this,
+		&BoardWindow::SetSelectable);
 }
 
-void BoardWindow::SelectSpace(int id)
+void BoardWindow::SetSelectable(int id) 
 {
-	m_bingoButtonGroup->selectSpace(id);
+	m_bingoBoard->SetSelectable(id);
+}
+
+void BoardWindow::SelectSpace()
+{
 	localPlayer->score = localPlayer->score + 1;
 	m_localPlayerLabel->setText(localPlayer->username +
 		QString::fromStdString(" x ") + QString::number(localPlayer->score));
@@ -156,7 +143,6 @@ void BoardWindow::DisplayGameView()
 	//	((double)((screenGeometry.width() - width) / screenGeometry.width())) * 10;
 
 	m_menuWidget->setLayout(mainLayout);
-	m_bingoWidget->setLayout(m_bingoGrid);
 	m_menuWidget->setLayout(m_menuLayout);
 
 	m_menuLayout->addWidget(m_rulesButton);
@@ -169,7 +155,7 @@ void BoardWindow::DisplayGameView()
 	mainLayout->addWidget(m_timerLabel);
 	mainLayout->addWidget(m_localPlayerLabel);
 	mainLayout->addWidget(m_remotePlayerLabel);
-	mainLayout->addWidget(m_bingoWidget);
+	mainLayout->addWidget(m_bingoBoard);
 	mainLayout->addWidget(m_menuWidget);
 
 	mainLayout->setAlignment(m_logoLabel_SuperMario, Qt::AlignHCenter);
@@ -178,10 +164,11 @@ void BoardWindow::DisplayGameView()
 	mainLayout->setAlignment(m_timerLabel, Qt::AlignHCenter);
 	mainLayout->setAlignment(m_localPlayerLabel, Qt::AlignHCenter);
 	mainLayout->setAlignment(m_remotePlayerLabel, Qt::AlignHCenter);
-	mainLayout->setAlignment(m_bingoGrid, Qt::AlignHCenter);
+	mainLayout->setAlignment(m_bingoBoard, Qt::AlignHCenter);
+	mainLayout->setAlignment(m_menuWidget, Qt::AlignHCenter);
 
 	StylizeText();
-	this->setStyleSheet(boardSS);
+	this->setStyleSheet(m_boardSS);
 	m_centralWidget->setLayout(mainLayout);
 	setCentralWidget(m_centralWidget);
 
@@ -242,40 +229,4 @@ void BoardWindow::StylizeText()
 	m_timerLabel->setGraphicsEffect(shadowEffect_timer);
 	m_localPlayerLabel->setGraphicsEffect(shadowEffect_localPlayer);
 	m_remotePlayerLabel->setGraphicsEffect(shadowEffect_remotePlayer);
-}
-
-void BoardWindow::PopulateBoard() {
-	QString spaceArray[] = {
-		//"Collect 6 Secret Shines",
-		"Collect 17 Blue Coins",
-		"Collect 1 Hidden Shine in Ricco Harbor",
-		"15 Blue Coins from M Graffiti",
-		"55 Total Blue Coins",
-		"Pinna Park Episode 8 Shine",
-		"Ride Yoshi in Pinna Park",
-		"Collect 2 Hidden Shines in Pianta Village",
-		"20 Blue Coins from Noki Bay",
-		"100 Coin Shine from Ricco Harbor",
-		//"100 Coin Shine from Gelato Beach",
-		"Collect 4 Shines",
-		"30 Total Blue Coins",
-		"Pinna 3 Hoverless",
-		"Bianco Hills Episode 8 Shine",
-		"11 Shines from Delfino Plaza",
-		"Defeat Shadow Mario in Gelato Beach",
-		"Defeat the Eel of Noki Bay",
-		"Lily Pad Shine",
-		"5 Linked Blue Coin Pairs",
-		"20 Blue Coins from Pinna Park",
-		"10 Blue Coins from Noki Bay",
-		"Collect 1 Hidden Shine from Noki Bay",
-		"25 Lives",
-		"Beat Piantissimo in Noki Bay",
-		"2 Shadow Marios",
-		"3 Fruit Lady Blue Coins"
-	};
-
-	for (int i = 0; i < boardSize*boardSize; i++) {
-		m_bingoButtonGroup->setText(i, spaceArray[i]);
-	}
 }

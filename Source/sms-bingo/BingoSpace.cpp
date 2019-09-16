@@ -1,10 +1,10 @@
 #include "BingoSpace.h"
-#include <QResizeEvent>
-#include <QWidget>
+#include <tuple>
 
 
-BingoSpace::BingoSpace()
+BingoSpace::BingoSpace(std::string title)
 {
+	m_title = title;
 }
 
 
@@ -12,15 +12,29 @@ BingoSpace::~BingoSpace()
 {
 }
 
+std::string BingoSpace::GetText() {
+	return m_title;
+}
 
-void BingoSpace::resizeEvent(QResizeEvent *event)
-{
-	event->accept();
+/*
+Sets the conditions that must be met for the BingoSpace to be selectable
+to a Player.
+*/
+void BingoSpace::AddCondition(int *var, int value) {
+	m_condition = std::make_tuple(false, var, value);
+}
 
-	if (event->size().width() > event->size().height()) {
-		QWidget::resize(event->size().height(), event->size().height());
+/*
+Checks all of the required conditions for the BingoSpace to be selectable
+to that Player.
+*/
+bool BingoSpace::CheckConditions() {
+	if (!std::get<0>(m_condition)) {
+		if (*std::get<1>(m_condition) == std::get<2>(m_condition) ||
+			*std::get<1>(m_condition) > std::get<2>(m_condition)) {
+			std::get<0>(m_condition) = true;
+			return true;
+		}
 	}
-	else {
-		QWidget::resize(event->size().width(), event->size().width());
-	}
+	return false;
 }
