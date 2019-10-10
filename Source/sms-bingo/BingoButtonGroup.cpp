@@ -48,7 +48,8 @@ bool BingoButtonGroup::selectSpace(int id)
 {
 	BingoButton *btn = (BingoButton *)button(id);
 
-	if (!(btn->isSelected()) && btn->isSelectable()) {
+	//if (!(btn->isSelected()) && btn->isSelectable()) { /*need a check that works for remote*/
+	if (!(btn->isSelected())) {
 		btn->setStyleSheet(selectedSpaceSS);
 		btn->SelectSpace();
 		return true;

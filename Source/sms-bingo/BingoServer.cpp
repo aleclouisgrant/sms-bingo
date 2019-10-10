@@ -2,15 +2,16 @@
 #include <thread>
 #include <WS2tcpip.h>
 #include <qdebug.h>
-
 #pragma comment (lib, "ws2_32.lib")
 
+#define BUFFER_SIZE 4096
 
-
-BingoServer::BingoServer()
+BingoServer::BingoServer(BingoReceiver *receiver)
 {
+	m_receiver = receiver;
+
 	qDebug() << "test test";
-	std::thread scannerThread(&BingoServer::ServerStart, this);
+	std::thread scannerThread(&BingoServer::Start, this);
 	scannerThread.detach();
 }
 
@@ -20,7 +21,7 @@ BingoServer::~BingoServer()
 }
 
 
-void BingoServer::ServerStart()
+void BingoServer::Start()
 {
 	WSADATA wsData; //place for winsock to write data to
 	WORD ver = MAKEWORD(2, 2);
@@ -34,13 +35,14 @@ void BingoServer::ServerStart()
 	SOCKET listenSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (listenSocket == INVALID_SOCKET) {
 		qDebug() << "Can't create listening socket";
+		WSACleanup();
 		return;
 	}
 
 	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(54000);
-	hint.sin_addr.S_un.S_addr = INADDR_ANY; //could also use inet_pton
+	hint.sin_addr.S_un.S_addr = INADDR_ANY;
 
 	bind(listenSocket, (sockaddr *)&hint, sizeof(hint));
 
@@ -49,7 +51,7 @@ void BingoServer::ServerStart()
 	sockaddr_in client;
 	int clientSize = sizeof(client);
 
-	SOCKET clientSocket = accept(listenSocket, (sockaddr *)&client, &clientSize);
+	m_clientSocket = accept(listenSocket, (sockaddr *)&client, &clientSize);
 	//should error check here
 
 	char host[NI_MAXHOST];		//client's name
@@ -71,14 +73,15 @@ void BingoServer::ServerStart()
 	qDebug() << "client connected on port: " << service;
 
 	closesocket(listenSocket); //don't need the listening socket anymore
-	const int bufferSize = 4096;
-	char buf[bufferSize];
+	
 
+	// this is the receiving loop
+	char buf[BUFFER_SIZE];
 	
 	while (true) {
-		memset(buf, 0, bufferSize);
+		memset(buf, 0, BUFFER_SIZE); //clear buffer
 
-		int bytesReceived = recv(clientSocket, buf, bufferSize, 0);
+		int bytesReceived = recv(m_clientSocket, buf, sizeof(buf), 0);
 		if (bytesReceived == SOCKET_ERROR) {
 			qDebug() << "Error receiving data from client";
 			break;
@@ -88,10 +91,34 @@ void BingoServer::ServerStart()
 			//client disconnected;
 			break;
 		}
-
-		send(clientSocket, buf, bytesReceived + 1, 0); //send data back to client
+		
+		int id;
+		sscanf(buf, "%d", &id);
+		m_receiver->DataReceived(id);
+		qDebug() << "Received data: " << buf;
 	}
 
-	closesocket(clientSocket);
+	closesocket(m_clientSocket);
+	WSACleanup();
+}
+
+
+void BingoServer::Send(int buttonId) 
+{
+	if (m_clientSocket == INVALID_SOCKET) {
+		qDebug() << "Socket not created yet";
+		return;
+	}
+
+	char buf[BUFFER_SIZE];
+	sprintf(buf, "%ld", buttonId);
+
+	qDebug() << "Sending: " << buf;
+	send(m_clientSocket, buf, sizeof(buf), 0);
+}
+
+void BingoServer::Disconnect()
+{
+	closesocket(m_clientSocket);
 	WSACleanup();
 }

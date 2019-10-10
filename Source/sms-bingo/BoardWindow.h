@@ -13,18 +13,21 @@
 #include "Player.h"
 #include <MemoryScanner/MemoryScanner.h>
 #include <BingoBoard2.h>
+#include <BingoSender.h>
+#include <BingoReceiver.h>
 
 class BoardWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	BoardWindow(QWidget *parent = Q_NULLPTR);
+	BoardWindow(BingoSender *sender, BingoReceiver *receiver, QWidget *parent = Q_NULLPTR);
 	~BoardWindow();
 
 private slots:
-	void SelectSpace();
+	void SelectLocalSpace(int id);
 	void SetSelectable(int id);
+	void SelectRemoteSpace(int id);
 
 private:
 	void MakePlayers();
@@ -35,10 +38,10 @@ private:
 	void ConnectButtons();
 	void ReadStyleSheets();
 
-	void ServerStart();
-	void ServerConnect();
-
 	MemoryScanner *m_memscanner;
+	BingoSender *m_sender;
+	BingoReceiver *m_receiver;
+
 	int boardSize;
 	double aspect_ratio;
 

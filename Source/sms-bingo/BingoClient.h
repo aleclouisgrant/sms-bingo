@@ -2,18 +2,20 @@
 #include <WS2tcpip.h>
 #include <BingoReceiver.h>
 
-class BingoServer
+
+class BingoClient
 {
 public:
-	BingoServer(BingoReceiver *receiver);
-	~BingoServer();
+	BingoClient(BingoReceiver *receiver);
+	~BingoClient();
 
 	void Send(int buttonId);
 
 private:
-	void Start();
+	void Connect();
 	void Disconnect();
 
 	BingoReceiver *m_receiver;
-	SOCKET m_clientSocket;
+	SOCKET m_serverSocket;
 };
+

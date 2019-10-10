@@ -8,12 +8,14 @@
 #include <DolphinProcess/DolphinAccessor.h>
 #include <MemoryScanner/MemoryScanner.h>
 #include <Player.h>
-#include <BingoServer.h>
 
 
-BoardWindow::BoardWindow(QWidget *parent)
+BoardWindow::BoardWindow(BingoSender *sender, BingoReceiver *receiver, QWidget *parent)
 	: QMainWindow(parent)
 {
+	m_sender = sender;
+	m_receiver = receiver;
+
 	boardSize = 5;
 	aspect_ratio = 1.2121212;
 
@@ -112,14 +114,12 @@ void BoardWindow::MakeWidgets()
 void BoardWindow::ConnectButtons()
 {
 	connect(m_bingoBoard, &BingoBoard::SpaceSelected, this,
-		&BoardWindow::SelectSpace);
+		&BoardWindow::SelectLocalSpace);
 	connect(m_bingoBoard, &BingoBoard::Selectable, this,
 		&BoardWindow::SetSelectable);
 
-	connect(m_rulesButton, &BingoButton::released, this,
-		&BoardWindow::ServerStart);
-	connect(m_forfeitButton, &BingoButton::released, this,
-		&BoardWindow::ServerConnect);
+	connect(m_receiver, &BingoReceiver::Received, this,
+		&BoardWindow::SelectRemoteSpace);
 }
 
 void BoardWindow::SetSelectable(int id) 
@@ -127,11 +127,20 @@ void BoardWindow::SetSelectable(int id)
 	m_bingoBoard->SetSelectable(id);
 }
 
-void BoardWindow::SelectSpace()
+void BoardWindow::SelectLocalSpace(int id)
 {
 	localPlayer->score = localPlayer->score + 1;
 	m_localPlayerLabel->setText(localPlayer->username +
 		QString::fromStdString(" x ") + QString::number(localPlayer->score));
+
+	m_sender->Send(id);
+}
+
+void BoardWindow::SelectRemoteSpace(int id) 
+{
+	remotePlayer->score = remotePlayer->score + 1;
+	m_remotePlayerLabel->setText(remotePlayer->username +
+		QString::fromStdString(" x ") + QString::number(remotePlayer->score));
 }
 
 void BoardWindow::DisplayGameView()
@@ -228,18 +237,4 @@ void BoardWindow::StylizeText()
 	m_timerLabel->setGraphicsEffect(shadowEffect_timer);
 	m_localPlayerLabel->setGraphicsEffect(shadowEffect_localPlayer);
 	m_remotePlayerLabel->setGraphicsEffect(shadowEffect_remotePlayer);
-}
-
-
-/*
- * 
- */
-void BoardWindow::ServerStart() 
-{
-	BingoServer *srv = new BingoServer();
-}
-
-void BoardWindow::ServerConnect() 
-{
-
 }

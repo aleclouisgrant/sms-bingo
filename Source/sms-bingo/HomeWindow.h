@@ -4,6 +4,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include "BingoButton.h"
+#include <BingoSender.h>
+#include <qpushbutton.h>
 
 class HomeWindow : public QMainWindow
 {
@@ -12,8 +14,17 @@ class HomeWindow : public QMainWindow
 public:
 	HomeWindow(QWidget *parent = Q_NULLPTR);
 	~HomeWindow();
+	void UnhideWindow();
 
 private:
+	void ConnectButtons();
+	void MakeHost();
+	void MakeClient();
+	void MakeBoardWindow();
+	
+	BingoReceiver *m_receiver;
+	BingoSender *m_sender;
+
 	QWidget* m_centralWidget;
 	QWidget* m_optionsWidget;
 
@@ -25,5 +36,8 @@ private:
 	QLabel* m_connect5Label;
 	QLabel* m_allowDelayClickLabel;
 	BingoButton* m_bingoButton;
+
+	QPushButton *m_hostButton;
+	QPushButton *m_clientButton;
 
 };

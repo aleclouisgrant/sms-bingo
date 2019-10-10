@@ -99,6 +99,15 @@
     <ClCompile Include="BingoServer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="BingoClient.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoSender.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoReceiver.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -123,6 +132,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BingoServer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoClient.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoSender.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,6 +218,9 @@
   <ItemGroup>
     <QtMoc Include="BingoBoard2.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoReceiver.h">
+      <Filter>Generated Files</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

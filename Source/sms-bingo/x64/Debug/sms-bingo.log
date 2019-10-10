@@ -1,3 +1,8 @@
 ﻿  Generate moc_predefs.h
-  BingoServer.cpp
+  BingoClient.cpp
+  BoardWindow.cpp
+  HomeWindow.cpp
+  main.cpp
+e:\sms bingo\sms-bingo\source\sms-bingo\boardwindow.cpp(139): warning C4100: 'id': unreferenced formal parameter
+  moc_BoardWindow.cpp
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe
