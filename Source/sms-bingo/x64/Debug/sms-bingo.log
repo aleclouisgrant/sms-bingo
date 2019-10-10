@@ -1,4 +1,3 @@
 ﻿  Generate moc_predefs.h
-  BingoSpaceList.cpp
-  MemoryScanner.cpp
+  BingoServer.cpp
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe

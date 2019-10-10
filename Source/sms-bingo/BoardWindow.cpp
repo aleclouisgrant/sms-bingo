@@ -8,6 +8,8 @@
 #include <DolphinProcess/DolphinAccessor.h>
 #include <MemoryScanner/MemoryScanner.h>
 #include <Player.h>
+#include <BingoServer.h>
+
 
 BoardWindow::BoardWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -113,6 +115,11 @@ void BoardWindow::ConnectButtons()
 		&BoardWindow::SelectSpace);
 	connect(m_bingoBoard, &BingoBoard::Selectable, this,
 		&BoardWindow::SetSelectable);
+
+	connect(m_rulesButton, &BingoButton::released, this,
+		&BoardWindow::ServerStart);
+	connect(m_forfeitButton, &BingoButton::released, this,
+		&BoardWindow::ServerConnect);
 }
 
 void BoardWindow::SetSelectable(int id) 
@@ -134,7 +141,7 @@ void BoardWindow::DisplayGameView()
 	//int stretch = (int)
 	//	((double)((screenGeometry.width() - width) / screenGeometry.width())) * 10;
 
-	m_menuWidget->setLayout(mainLayout);
+	//m_menuWidget->setLayout(mainLayout);
 	m_menuWidget->setLayout(m_menuLayout);
 
 	m_menuLayout->addWidget(m_rulesButton);
@@ -221,4 +228,18 @@ void BoardWindow::StylizeText()
 	m_timerLabel->setGraphicsEffect(shadowEffect_timer);
 	m_localPlayerLabel->setGraphicsEffect(shadowEffect_localPlayer);
 	m_remotePlayerLabel->setGraphicsEffect(shadowEffect_remotePlayer);
+}
+
+
+/*
+ * 
+ */
+void BoardWindow::ServerStart() 
+{
+	BingoServer *srv = new BingoServer();
+}
+
+void BoardWindow::ServerConnect() 
+{
+
 }

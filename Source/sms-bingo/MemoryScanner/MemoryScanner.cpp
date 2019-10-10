@@ -33,7 +33,7 @@ void MemoryScanner::FirstScan() {
 		blue_coin_address), addressbuffer, sizeof(u32), false);
 	blue_coin_total = (int)addressbuffer[0];
 
-	while(true) {
+	while (true) {
 		Scan(blue_coin_address, &m_bingoBoard->getPlayer()->m_blueCoinTotal);
 		Scan(shine_total_address, &m_bingoBoard->getPlayer()->m_shineTotal);
 

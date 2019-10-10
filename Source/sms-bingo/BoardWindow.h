@@ -35,6 +35,9 @@ private:
 	void ConnectButtons();
 	void ReadStyleSheets();
 
+	void ServerStart();
+	void ServerConnect();
+
 	MemoryScanner *m_memscanner;
 	int boardSize;
 	double aspect_ratio;

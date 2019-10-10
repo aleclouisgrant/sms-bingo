@@ -96,6 +96,9 @@
     <ClCompile Include="BingoBoard2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BingoServer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -118,6 +121,9 @@
     </QtMoc>
     <ClInclude Include="BingoBoard.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoServer.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

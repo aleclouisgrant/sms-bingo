@@ -201,9 +201,11 @@
     <ClCompile Include="MemoryScanner\MemoryScanner.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="BingoServer.cpp" />
     <ClCompile Include="TitleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BingoServer.h" />
     <QtMoc Include="TitleWindow.h">
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\moc_%(Filename).cpp</OutputFile>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\GeneratedFiles;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;\include;$(QTDIR)\mkspecs\win32-msvc</IncludePath>
