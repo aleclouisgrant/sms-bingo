@@ -1,0 +1,57 @@
+QWidget#CentralWidget {
+	background: rgba(207, 244, 255, 255);
+}
+
+QFrame#GameFrame {
+	background: white;
+	border: 5px solid black
+}
+
+QLabel#LogoLabel_SuperMario {
+	color: rgb(95,106,251);
+	font: 55pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LogoLabel_Sunshine {
+	color: rgb(95,106,251);
+	font: 86pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LogoLabel_Bingo {
+	color: rgb(255,247,16);
+	font: 94pt "Super Mario 256";
+	text-align: center;
+}
+
+QLabel#TimerLabel {
+	color: white;
+	font: 80pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LocalPlayerLabel {
+	color: white;
+	font: 30pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#RemotePlayerLabel {
+	color: white;
+	font: 30pt "Super Mario 256";
+	text-align: center;
+}
+
+QPushButton { 
+	font: 17pt "Delfino";
+	text-align: center;
+	background: rgba(47, 47, 55, 0.6);
+	color: white;
+	border: none;
+	/* padding: none; */
+}
+
+QPushButton#MenuButton {
+	border-radius: 10px;
+	font: 17pt "Delfino";
+	color: white;
+	text-align: center;
+	background: rgba(0, 25, 255, 0.6);
+}

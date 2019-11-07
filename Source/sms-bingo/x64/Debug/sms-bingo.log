@@ -1,8 +1,7 @@
 ﻿  Generate moc_predefs.h
-  BingoClient.cpp
-  BoardWindow.cpp
-  HomeWindow.cpp
-  main.cpp
-e:\sms bingo\sms-bingo\source\sms-bingo\boardwindow.cpp(139): warning C4100: 'id': unreferenced formal parameter
-  moc_BoardWindow.cpp
+  MainServer.cpp
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(135): warning C4189: 'bytesReceived': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(142): warning C4189: 'bytesReceived': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(167): warning C4189: 'bytesReceived': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(221): warning C4018: '<': signed/unsigned mismatch
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe

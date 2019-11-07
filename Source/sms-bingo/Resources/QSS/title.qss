@@ -1,0 +1,10 @@
+QLabel {
+	color: rgb(255, 255, 255);
+	background: rgba(0, 0, 0, 0);
+	font: 30pt "Delfino";
+	text-align: center;
+}
+
+QWidget#LoginWidget {
+	background-color: transparent;
+}

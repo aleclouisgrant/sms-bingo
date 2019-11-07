@@ -1,0 +1,73 @@
+QWidget#CentralWidget {
+	/* background: rgba(207, 244, 255, 255); */
+	background: qlineargradient(spread:pad, x1:0.5 y1:0, x2:0.5 y2:1, 
+		stop:0 rgba(207, 244, 255, 1), 
+		stop:1 rgba(10, 123, 161, 1));
+}
+
+QLabel#LogoLabel_SuperMario {
+	color: rgb(95,106,251);
+	font: 25pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LogoLabel_Sunshine {
+	color: rgb(95,106,251);
+	font: 25pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LogoLabel_Bingo {
+	color: rgb(255,247,16);
+	font: 30pt "Super Mario 256";
+	text-align: center;
+}
+
+QLabel#TimerLabel {
+	color: white;
+	font: 40pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#LocalPlayerLabel {
+	color: white;
+	font: 20pt "Super Mario 256";
+	text-align: center;
+}
+QLabel#RemotePlayerLabel {
+	color: white;
+	font: 20pt "Super Mario 256";
+	text-align: center;
+}
+
+BingoButton { 
+	text-align: center;
+	background: rgba(47, 47, 55, 0.6);
+	border: none;
+	padding: 1px;
+}
+
+QLabel {
+	font: 11pt "Delfino";
+	text-align: center;
+	color: white;
+}
+
+QPushButton#RulesButton {
+	border-radius: 10px;
+	font: 15pt "Delfino";
+	color: white;
+	text-align: center;
+	background: rgba(0, 25, 255, 0.6);
+}
+QPushButton#OptionsButton {
+	border-radius: 10px;
+	font: 15pt "Delfino";
+	color: white;
+	text-align: center;
+	background: rgba(0, 25, 255, 0.6);
+}
+QPushButton#ForfeitButton {
+	border-radius: 10px;
+	font: 15pt "Delfino";
+	color: white;
+	text-align: center;
+	background: rgba(0, 25, 255, 0.6);
+}

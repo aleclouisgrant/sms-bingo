@@ -5,6 +5,7 @@ Account Logins:
 
 Multiplayer:
 	-Two player client/server networking
+		-local is done, online needed
 	-Spectator client for public games
 
 Game Options:

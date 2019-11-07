@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/Video"/>
+    <qresource prefix="/QSS">
+        <file alias="board.qss">QSS/board.qss</file>
+        <file alias="boardView.qss">QSS/boardView.qss</file>
+        <file alias="gameView.qss">QSS/gameView.qss</file>
+        <file alias="selectableSpace.qss">QSS/selectableSpace.qss</file>
+        <file alias="selectLocalSpace.qss">QSS/selectLocalSpace.qss</file>
+        <file alias="selectRemoteSpace.qss">QSS/selectRemoteSpace.qss</file>
+        <file alias="title.qss">QSS/title.qss</file>
+    </qresource>
+    <qresource prefix="/Fonts">
+        <file alias="Delfino.tff">Fonts/Delfino.ttf</file>
+        <file alias="SuperMario256.tff">Fonts/SuperMario256.ttf</file>
+    </qresource>
+</RCC>

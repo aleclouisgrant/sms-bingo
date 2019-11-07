@@ -3,7 +3,7 @@
 #include "Common/CommonTypes.h"
 #include "Common/CommonUtils.h"
 #include "Common/MemoryCommon.h"
-#include "BingoBoard2.h"
+#include "BingoBoard/BingoBoard2.h"
 
 class MemoryScanner {
 

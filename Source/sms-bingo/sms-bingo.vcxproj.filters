@@ -53,31 +53,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BingoBoard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BingoSpace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TitleWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BoardWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HomeWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BingoButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BingoButtonGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Common\MemoryCommon.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -90,54 +66,93 @@
     <ClCompile Include="MemoryScanner\MemoryScanner.cpp">
       <Filter>MemoryScanner</Filter>
     </ClCompile>
-    <ClCompile Include="BingoSpaceList.cpp">
+    <ClCompile Include="ServerClient\BingoClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BingoBoard2.cpp">
+    <ClCompile Include="ServerClient\BingoReceiver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BingoServer.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="ServerClient\BingoSender.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BingoClient.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="ServerClient\BingoServer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BingoSender.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="QWindows\TitleWindow.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BingoReceiver.cpp">
+    <ClCompile Include="QWindows\HomeWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QWindows\BoardWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoBoard2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoButtonGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BingoBoard\BingoSpaceList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Other\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Other\GameOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerFlags.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <QtMoc Include="TitleWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="HomeWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="BoardWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="BingoButtonGroup.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="BingoButton.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClInclude Include="BingoBoard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BingoServer.h">
+    <ClInclude Include="resource.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="BingoClient.h">
-      <Filter>Generated Files</Filter>
+    <ClInclude Include="ServerClient\BingoClient.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BingoSender.h">
+    <ClInclude Include="ServerClient\BingoSender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerClient\BingoServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoBoard\BingoBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoBoard\BingoSpace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BingoBoard\BingoSpaceList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\GameOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerFlags.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -147,22 +162,25 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="boardView.qss">
-      <Filter>Resources\QSS</Filter>
-    </None>
-    <None Include="selectspace.qss">
-      <Filter>Resources\QSS</Filter>
-    </None>
-    <None Include="gameView.qss">
-      <Filter>Resources\QSS</Filter>
-    </None>
     <None Include="Resources\Fonts\Delfino.ttf">
       <Filter>Resources\Fonts</Filter>
     </None>
-    <None Include="board.qss">
+    <None Include="Resources\QSS\board.qss">
       <Filter>Resources\QSS</Filter>
     </None>
-    <None Include="selectableSpace.qss">
+    <None Include="Resources\QSS\boardView.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="Resources\QSS\selectableSpace.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="Resources\QSS\selectLocalSpace.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="Resources\QSS\selectRemoteSpace.qss">
+      <Filter>Resources\QSS</Filter>
+    </None>
+    <None Include="Resources\QSS\gameView.qss">
       <Filter>Resources\QSS</Filter>
     </None>
   </ItemGroup>
@@ -172,19 +190,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="sms_bingo.qrc">
-      <Filter>Resources</Filter>
-    </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
     <Media Include="Resources\titlevideo.wmv">
       <Filter>Resources</Filter>
     </Media>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="title.qss">
-      <Filter>Resources\QSS</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\CommonTypes.h">
@@ -205,22 +213,53 @@
     <ClInclude Include="DolphinProcess\Windows\WindowsDolphinProcess.h">
       <Filter>DolphinProcess\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="BingoSpace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BingoSpaceList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MemoryScanner\MemoryScanner.h">
       <Filter>MemoryScanner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="BingoBoard2.h">
+    <QtMoc Include="ServerClient\BingoReceiver.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="BingoReceiver.h">
-      <Filter>Generated Files</Filter>
+    <QtMoc Include="QWindows\TitleWindow.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="QWindows\HomeWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="QWindows\BoardWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoBoard\BingoBoard2.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoBoard\BingoButton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BingoBoard\BingoButtonGroup.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainServer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainClient.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="RoomWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="sms-bingo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resources\sms_bingo.qrc">
+      <Filter>Resources</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\QSS\title.qss">
+      <Filter>Resources\QSS</Filter>
+    </Text>
   </ItemGroup>
 </Project>

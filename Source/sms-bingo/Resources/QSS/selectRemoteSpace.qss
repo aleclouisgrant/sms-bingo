@@ -1,0 +1,8 @@
+BingoButton {
+	background: qlineargradient(spread:pad, x1:0.5 y1:0, x2:0.5 y2:1, 
+		stop:0 rgba(0, 110, 44, 0.75), 
+		stop:1 rgba(160, 243, 196, 0.75));
+	border: 2px solid black;
+	color: white;
+	font: 11pt "Delfino";
+}
