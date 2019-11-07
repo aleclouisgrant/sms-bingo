@@ -49,7 +49,7 @@ void BingoClient::Start() {
 int BingoClient::Connect()
 {
 	std::string ipAddress = "127.0.0.1";	// ip address of the server
-	int port = 54000;						// listening port on the server
+	int port = m_receiver->GetPort();		// listening port on the server
 
 	WSAData wsData;
 	WORD ver = MAKEWORD(2, 2);

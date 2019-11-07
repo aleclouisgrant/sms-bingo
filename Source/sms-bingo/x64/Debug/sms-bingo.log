@@ -1,7 +1,18 @@
 ﻿  Generate moc_predefs.h
+  Moc'ing MainClient.h...
+   Warning: Failed to resolve include "./GeneratedFiles/Debug/moc_predefs.h" for moc file E:\SMS Bingo\sms-bingo\Source\sms-bingo\MainClient.h
+  moc_MainClient.cpp
+  MainClient.cpp
   MainServer.cpp
-e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(135): warning C4189: 'bytesReceived': local variable is initialized but not referenced
-e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(142): warning C4189: 'bytesReceived': local variable is initialized but not referenced
-e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(167): warning C4189: 'bytesReceived': local variable is initialized but not referenced
-e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(221): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(152): warning C4189: 'bytesReceived': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(206): warning C4018: '<': signed/unsigned mismatch
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(435): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(445): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(454): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(467): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(539): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainclient.cpp(549): warning C4189: 'received': local variable is initialized but not referenced
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(274): warning C4700: uninitialized local variable 'len' used
+e:\sms bingo\sms-bingo\source\sms-bingo\mainserver.cpp(274): warning C4700: uninitialized local variable 'addr' used
   sms-bingo.vcxproj -> E:\SMS Bingo\sms-bingo\Source\sms-bingo\x64\Debug\sms-bingo.exe

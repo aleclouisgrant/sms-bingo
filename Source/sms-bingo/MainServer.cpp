@@ -8,7 +8,6 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-//#include "ServerFlags.h"
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -132,21 +131,7 @@ void MainServer::Start()
 						}
 					}
 					else if (flag == ServerFlag::RequestJoin) { //request to connect to room
-						int bytesReceived = recv(sock, buf, BUFFER_SIZE, 0); 
-						char *username = buf; //username of host from client
-
-						qDebug() << "MAINSERVER: Request to connect to " << username << " by " << sock << ".";
-						send((SOCKET)username, buf, BUFFER_SIZE, 0); //send the username of client to host
-					}
-					else if (flag == ServerFlag::RequestAccept) { //request to connect was accepted
-						int bytesReceived = recv(sock, buf, BUFFER_SIZE, 0); 
-						char *username = buf; //username of client from host
-						
-						//memset(buf, 0, BUFFER_SIZE);
-						memcpy(buf, (const void *)sock, sizeof(sock));
-
-						qDebug() << "MAINSERVER: Request to connect to " << buf << " by " << username << " accepted";
-						send((SOCKET)username, buf, BUFFER_SIZE, 0); //send the username of host to client to connect
+						RequestJoin(sock);
 					}
 					else if (flag == ServerFlag::RefreshRooms) {
 						RefreshRooms(sock);
@@ -228,14 +213,14 @@ void MainServer::RefreshAllRooms()
 
 void MainServer::RefreshRooms(SOCKET outSock)
 {
-	qDebug() << "1A MAINSERVER: Refreshing room list for client: " << stou(outSock);
+	qDebug() << "MAINSERVER: Refreshing room list for client: " << stou(outSock);
 	char buf[BUFFER_SIZE];
 	memset(buf, 0, BUFFER_SIZE);
 	sprintf(buf, "%d", ServerFlag::RefreshRooms);
 	send(outSock, buf, sizeof(buf), 0);
 
 	//send the number of rooms
-	qDebug() << "2A MAINSERVER: Roomsize: " << m_roomSize;
+	qDebug() << "MAINSERVER: Roomsize: " << m_roomSize;
 	memset(buf, 0, BUFFER_SIZE);
 	sprintf(buf, "%d", m_roomSize);
 	send(outSock, buf, sizeof(buf), 0);
@@ -245,8 +230,54 @@ void MainServer::RefreshRooms(SOCKET outSock)
 		memset(buf, 0, BUFFER_SIZE);
 		sprintf(buf, "%s", m_clientList.find(m_roomList[i])->second);
 
-		qDebug() << "3A MAINSERVER: " << buf;
+		qDebug() << "MAINSERVER: " << buf;
 		send(outSock, buf, sizeof(buf), 0);
+	}
+}
+
+void MainServer::RequestJoin(SOCKET client)
+{
+	char buf[BUFFER_SIZE];
+	memset(buf, 0, BUFFER_SIZE);
+
+	int bytesReceived = recv(client, buf, BUFFER_SIZE, 0);
+	char host[BUFFER_SIZE]; //username of host from client
+	sscanf(buf, "%s", host); 
+	qDebug() << "MAINSERVER: Request to connect to " << host << " by " << stou(client);
+	
+	//send the request flag to the host
+	memset(buf, 0, BUFFER_SIZE);
+	sprintf(buf, "%d", ServerFlag::RequestJoin);
+	send(utos(host), buf, BUFFER_SIZE, 0);
+	qDebug() << "MAINSERVER: Sending request flag to " << host << " from " << stou(client);
+	
+	//send the username of client to host
+	memset(buf, 0, BUFFER_SIZE);
+	sprintf(buf, "%s", stou(client));
+	send(utos(host), buf, BUFFER_SIZE, 0);
+	qDebug() << "MAINSERVER: Sending username to " << host << " from " << stou(client);
+
+	//get whether the host accepted or not
+	memset(buf, 0, BUFFER_SIZE);
+	bytesReceived = recv(client, buf, BUFFER_SIZE, 0);
+	ServerFlag flag;
+	sscanf(buf, "%d", &flag);
+	qDebug() << "MAINSERVER: Host (" << host << ") sent answer: " << (int)flag;
+
+	//send the flag to the client
+	send(client, buf, BUFFER_SIZE, 0);
+
+	if (flag == ServerFlag::RequestAccept) {
+		//send the host's port to the client so they can connect
+		sockaddr_in *addr;
+		int *len;
+		getsockname(utos(host), (sockaddr *)addr, len);
+
+		memset(buf, 0, BUFFER_SIZE);
+		sprintf(buf, "%d", ntohs(addr->sin_port));
+		send(client, buf, BUFFER_SIZE, 0);
+		qDebug() << "MAINSERVER: Sending port (" << ntohs(addr->sin_port) 
+			<< ") to client ( " << stou(client) << ")";
 	}
 }
 

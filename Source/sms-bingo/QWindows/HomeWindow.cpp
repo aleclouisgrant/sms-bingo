@@ -50,7 +50,7 @@ HomeWindow::HomeWindow(QWidget *parent)
 	setCentralWidget(m_centralWidget);
 
 
-	m_receiver = new BingoReceiver();
+	m_receiver = new BingoReceiver(0);
 	ConnectButtons();
 }
 

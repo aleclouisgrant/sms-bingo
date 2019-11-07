@@ -13,6 +13,7 @@ enum class ServerFlag : int {
 	DeleteRoom,
 	RequestJoin,
 	RequestAccept,
+	RequestReject,
 	UsernameAccept,
 	UsernameReject,
 	RefreshRooms
@@ -33,7 +34,8 @@ private:
 	void RefreshRooms(SOCKET outSock);
 	void CheckUsername(SOCKET sock);
 	void AddRoom(SOCKET sock);
-	
+	void RequestJoin(SOCKET client);
+
 	char *stou(SOCKET sock);
 	SOCKET utos(char *username);
 

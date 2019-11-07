@@ -2,9 +2,9 @@
 #include <QObject>
 
 
-BingoReceiver::BingoReceiver()
+BingoReceiver::BingoReceiver(int port)
 {
-
+	m_port = port;
 }
 
 
@@ -29,7 +29,6 @@ void BingoReceiver::SetupDataReceived(char *data)
 	emit SetupDataParsed();
 }
 
-char *BingoReceiver::GetRemoteUsername() 
-{
-	return m_remoteUsername;
-}
+char *BingoReceiver::GetRemoteUsername() { return m_remoteUsername; }
+
+int BingoReceiver::GetPort() { return m_port; }

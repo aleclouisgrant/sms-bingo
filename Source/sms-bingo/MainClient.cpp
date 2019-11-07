@@ -169,7 +169,8 @@ void MainClient::RoomGUI()
 	send(m_serverSocket, buf, BUFFER_SIZE, 0);
 
 	connect(this, &MainClient::Refresh, this, &MainClient::RefreshRoomList);
-	
+	connect(this, &MainClient::IncomingRequest, this, &MainClient::ShowRequest);
+
 	// we can now delete all the widgets from before
 	qDeleteAll(m_mainWidget->children());
 	m_layout = new QVBoxLayout(m_mainWidget);
@@ -249,12 +250,14 @@ void MainClient::MakeHomeWindow()
 	return;
 }
 
-void MainClient::ShowRequest(QString username)
+void MainClient::ShowRequest(char* username)
 {
+	qDebug() << "we made it";
 	QFrame *requestFrame = new QFrame(this);
 	QVBoxLayout *layout = new QVBoxLayout(requestFrame);
 
-	QLabel *text = new QLabel(username + " would like to play. Accept?", requestFrame);
+	QLabel *text = new QLabel(QString::fromStdString(username) + 
+		" would like to play. Accept?", requestFrame);
 	
 	QWidget *buttonWidget = new QWidget(requestFrame);
 	QHBoxLayout *buttonLayout = new QHBoxLayout(buttonWidget);
@@ -267,12 +270,27 @@ void MainClient::ShowRequest(QString username)
 	layout->addWidget(text, Qt::AlignTop | Qt::AlignHCenter);
 	layout->addWidget(buttonWidget, Qt::AlignBottom | Qt::AlignHCenter);
 
+	m_layout->addWidget(requestFrame);
+
 	connect(acceptButton, &QPushButton::released, this, &MainClient::ConnectToLocalRoom);
 
-	connect(rejectButton, &QPushButton::released, [requestFrame] () {
+	connect(rejectButton, &QPushButton::released, [requestFrame, this, username] () {
 		requestFrame->deleteLater();
+		RejectRequest(username);
 	});
 
+}
+
+void MainClient::RejectRequest(char *username)
+{
+	char buf[BUFFER_SIZE];
+	memset(buf, 0, BUFFER_SIZE);
+	sprintf(buf, "%d", ServerFlag::RequestReject);
+	send(m_serverSocket, buf, BUFFER_SIZE, 0);
+
+	memset(buf, 0, BUFFER_SIZE);
+	sprintf(buf, "%s", username);
+	send(m_serverSocket, buf, BUFFER_SIZE, 0);
 }
 
 /*
@@ -280,13 +298,16 @@ void MainClient::ShowRequest(QString username)
  */
 void MainClient::ConnectToLocalRoom() 
 {
-	emit RequestAccepted();
+	char buf[BUFFER_SIZE];
+	memset(buf, 0, BUFFER_SIZE);
+	sprintf(buf, "%d", ServerFlag::RequestAccept);
+	send(m_serverSocket, buf, BUFFER_SIZE, 0);
 
-	BingoReceiver *receiver = new BingoReceiver();
+	BingoReceiver *receiver = new BingoReceiver(0);
 	BingoServer *host = new BingoServer(receiver);
 	BingoSender *sender = new BingoSender(host);
 
-	OpenGame();
+	//OpenGame();
 
 	BoardWindow *bw = new BoardWindow(sender, receiver);
 	bw->show();
@@ -303,13 +324,13 @@ void MainClient::ConnectToLocalRoom()
 /*
  * Connect to player as a client
  */
-void MainClient::ConnectToRemoteRoom()
+void MainClient::ConnectToRemoteRoom(int port)
 {
-	BingoReceiver *receiver = new BingoReceiver();
+	BingoReceiver *receiver = new BingoReceiver(port);
 	BingoClient *client = new BingoClient(receiver);
 	BingoSender *sender = new BingoSender(client);
 
-	OpenGame();
+	//OpenGame();
 
 	BoardWindow *bw = new BoardWindow(sender, receiver);
 	bw->show();
@@ -417,10 +438,16 @@ void MainClient::Listen()
 		int flag;
 		sscanf(buf, "%d", &flag);
 		
-		qDebug() << "1B CLIENT( " << m_username << "): Received flag from server: " << flag;
+		qDebug() << "CLIENT( " << m_username << "): Received flag from server: " << flag;
 
 		if ((ServerFlag)flag == ServerFlag::RequestJoin) { // connecting to other player
-
+			memset(buf, 0, BUFFER_SIZE);
+			int received = recv(m_serverSocket, buf, BUFFER_SIZE, 0);
+			char username[BUFFER_SIZE];
+			sscanf(buf, "%s", username);
+			
+			qDebug() << "CLIENT(" << m_username << "): Request to join received by " << username;
+			emit IncomingRequest(username);
 		}
 		else if((ServerFlag)flag == ServerFlag::RefreshRooms) { // refresh room list	
 			memset(buf, 0, BUFFER_SIZE);
@@ -428,7 +455,7 @@ void MainClient::Listen()
 			int roomSize;
 			sscanf(buf, "%d", &roomSize);
 
-			qDebug() << "2B CLIENT(" << m_username << "): Refreshed Room List[" << roomSize << "]";
+			qDebug() << "CLIENT(" << m_username << "): Refreshed Room List[" << roomSize << "]";
 
 			m_roomList = new QString[roomSize];
 			char buf[BUFFER_SIZE];
@@ -440,7 +467,7 @@ void MainClient::Listen()
 				int received = recv(m_serverSocket, buf, BUFFER_SIZE, 0);
 				//do a check here
 				
-				qDebug() << "3B CLIENT(" << m_username << "): Received room by " << buf;
+				qDebug() << "CLIENT(" << m_username << "): Received room by " << buf;
 				m_roomList[count] = (QString)buf;
 				count++;
 			}
@@ -455,7 +482,7 @@ void MainClient::RefreshRoomList(int roomSize)
 	for (int i = 0; i < roomSize; i++) {
 		if (m_roomList[i] != m_username) {
 			if (m_roomArray.size() == 0) {
-				qDebug() << "3C CLIENT(" << m_username << "): Room by " << m_roomList[i] << " added.";
+				qDebug() << "CLIENT(" << m_username << "): Room by " << m_roomList[i] << " added.";
 				RoomWidget *roomWidget = new RoomWidget(1, m_roomList[i], m_roomWidget);
 				m_roomLayout->addWidget(roomWidget);
 				m_roomLayout->setAlignment(roomWidget, Qt::AlignTop);
@@ -466,8 +493,10 @@ void MainClient::RefreshRoomList(int roomSize)
 			else {
 				for (int j = 0; j < m_roomArray.size(); j++) {
 					if (m_roomList[i] != m_roomArray[j]->GetUsername()) {
-						qDebug() << "3C CLIENT(" << m_username << "): " << m_roomList[i] << " != " << m_roomArray[j]->GetUsername();
-						qDebug() << "3C CLIENT(" << m_username << "): Room by " << m_roomList[i] << " added.";
+						qDebug() << "CLIENT(" << m_username << "): " << m_roomList[i] 
+							<< " != " << m_roomArray[j]->GetUsername();
+						qDebug() << "CLIENT(" << m_username << "): Room by " 
+							<< m_roomList[i] << " added.";
 						RoomWidget *roomWidget = new RoomWidget(1, m_roomList[i], m_roomWidget);
 						m_roomLayout->addWidget(roomWidget);
 						m_roomLayout->setAlignment(roomWidget, Qt::AlignTop);
@@ -476,14 +505,16 @@ void MainClient::RefreshRoomList(int roomSize)
 						connect(roomWidget, &RoomWidget::RequestToJoin, this, &MainClient::SendRequest);
 					}
 					else {
-						qDebug() << "3C CLIENT(" << m_username << "): Room by " << m_roomArray[j]->GetUsername() << " already in list.";
+						qDebug() << "CLIENT(" << m_username << "): Room by " 
+							<< m_roomArray[j]->GetUsername() << " already in list.";
 						break;
 					}
 				}
 			}
 		}
 		else {
-			qDebug() << "3C CLIENT(" << m_username << "): Room by " << m_roomList[i] << " rejected (same username).";
+			qDebug() << "CLIENT(" << m_username << "): Room by " 
+				<< m_roomList[i] << " rejected (same username).";
 		}
 	}
 }
@@ -492,16 +523,37 @@ void MainClient::SendRequest(RoomWidget *roomWidget)
 {
 	char buf[BUFFER_SIZE];
 	memset(buf, 0, BUFFER_SIZE);
-	int flag;
-	flag = (int)ServerFlag::RequestJoin;
-	sprintf(buf, "%ld", flag);
-
+	sprintf(buf, "%d", ServerFlag::RequestJoin);
 	send(m_serverSocket, buf, BUFFER_SIZE, 0); //send the request to join flag
 
-	/*
 	//then send the username to connect to
 	memset(buf, 0, BUFFER_SIZE);
-	sprintf(buf, "%s", roomWidget->GetUsername().toLocal8Bit);
+	sprintf(buf, "%s", roomWidget->GetUsername().toLocal8Bit().data());
 	send(m_serverSocket, buf, BUFFER_SIZE, 0);
-	*/
+
+	qDebug() << "CLIENT(" << m_username << "): requesting to join room by "
+		<< roomWidget->GetUsername();
+
+	//receive answer (accept or reject)
+	memset(buf, 0, BUFFER_SIZE);
+	int received = recv(m_serverSocket, buf, BUFFER_SIZE, 0);
+	ServerFlag flag;
+	sscanf(buf, "%d", &flag);
+
+	if (flag == ServerFlag::RequestAccept) {
+		qDebug() << "CLIENT(" << m_username << "): Request to join " 
+			<< roomWidget->GetUsername() << " accepted.";
+		
+		//get port number from other user
+		memset(buf, 0, BUFFER_SIZE);
+		int received = recv(m_serverSocket, buf, BUFFER_SIZE, 0);
+		int port;
+		sscanf(buf, "%d", &port);
+		
+		ConnectToRemoteRoom(port);
+	}
+	else if (flag == ServerFlag::RequestReject) {
+		qDebug() << "CLIENT(" << m_username << "): Request to join " 
+			<< roomWidget->GetUsername() << " rejected.";
+	}
 }

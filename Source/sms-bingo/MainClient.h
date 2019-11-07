@@ -21,7 +21,8 @@ public:
 
 signals:
 	void RequestAccepted();
-	void Refresh(int flag);
+	void Refresh(int roomSize);
+	void IncomingRequest(char* username);
 
 private:
 	void LoginGUI();
@@ -35,7 +36,7 @@ private:
 	void MakeHomeWindow();
 	void ConnectToServer();
 
-	void ConnectToRemoteRoom();
+	void ConnectToRemoteRoom(int port);
 	void ConnectToLocalRoom();
 
 	void Listen();
@@ -60,7 +61,8 @@ private:
 	QString *m_roomList;
 
 private slots:
-	void ShowRequest(QString username);
+	void ShowRequest(char* username);
 	void RefreshRoomList(int roomLength);
 	void SendRequest(RoomWidget *roomWidget);
+	void RejectRequest(char *username);
 };
